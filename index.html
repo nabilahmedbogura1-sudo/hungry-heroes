@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hungry Heroes — Rajshahi's Burger Headquarters</title>
+  <meta name="description" content="Hungry Heroes, Ranibazar, Rajshahi — burgers, momos, fries, shakes and power bowls. Explore the menu, find us, and order online." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:#ef2b2d;
+      --red-dark:#b81519;
+      --ink:#0b0b0b;
+      --paper:#f6f0e7;
+      --cream:#fffaf2;
+      --muted:#8b847b;
+      --line:rgba(11,11,11,.10);
+      --shadow:0 18px 60px rgba(0,0,0,.14);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea{font:inherit}
+    img{max-width:100%;display:block}
+    .container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+    .topbar{background:var(--red);color:#fff;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .topbar .container{display:flex;justify-content:center;padding:9px 0}
+    header{position:sticky;top:0;z-index:40;background:rgba(246,240,231,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;font-size:26px}
+    .brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--ink);background:#fff}
+    .navlinks{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em}
+    .navlinks a{opacity:.78}.navlinks a:hover{opacity:1;color:var(--red)}
+    .navcta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:13px 18px;border-radius:999px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .menu-btn{display:none;border:0;background:var(--ink);color:#fff;width:44px;height:44px;border-radius:50%;font-size:20px}
+
+    .hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;min-height:720px;display:flex;align-items:center}
+    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.96) 0%,rgba(0,0,0,.76) 38%,rgba(0,0,0,.18) 72%,rgba(0,0,0,.55) 100%),url('https://images.deliveryhero.io/image/fd-bd/LH/s7lr-hero.jpg') center/cover}
+    .hero::after{content:"";position:absolute;inset:auto -12% -20% auto;width:500px;height:500px;background:var(--red);border-radius:50%;filter:blur(35px);opacity:.28}
+    .hero-inner{position:relative;z-index:2;padding:92px 0;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:50px;align-items:center}
+    .kicker{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#ffb0b0;margin-bottom:18px}
+    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(76px,11vw,148px);line-height:.82;letter-spacing:.02em;margin:0 0 24px;max-width:720px}
+    .hero-copy{max-width:560px;color:#ddd7cf;font-size:17px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 21px;border-radius:999px;border:1px solid transparent;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:12px;cursor:pointer;transition:.2s ease}
+    .btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:#ff4143;transform:translateY(-1px)}
+    .btn-ghost{border-color:rgba(255,255,255,.25);color:#fff;background:rgba(255,255,255,.05)}.btn-ghost:hover{background:rgba(255,255,255,.12)}
+    .hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(18px);padding:20px;border-radius:28px;box-shadow:var(--shadow)}
+    .hero-card img{width:100%;aspect-ratio:1/1;border-radius:20px;object-fit:cover}
+    .hero-card .cap{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-top:15px}
+    .hero-card h3{font-family:'Bebas Neue';font-size:36px;line-height:1;margin:0}.hero-card p{margin:5px 0 0;color:#cbc4bb;font-size:12px}
+    .price-pill{font-weight:900;background:#fff;color:var(--ink);padding:10px 12px;border-radius:12px;white-space:nowrap}
+
+    .ticker{background:#fff;border-block:1px solid var(--line);overflow:hidden}
+    .ticker-track{display:flex;gap:34px;white-space:nowrap;padding:14px 0;font-family:'Bebas Neue';letter-spacing:.08em;font-size:22px;animation:marquee 20s linear infinite}.ticker b{color:var(--red)}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+
+    section{padding:110px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:45px}.eyebrow{font-size:11px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+    h2{font-family:'Bebas Neue';font-size:clamp(54px,7vw,84px);line-height:.9;margin:5px 0 0;letter-spacing:.02em}
+    .section-lead{max-width:470px;color:#6f6a63;font-size:15px}
+
+    .story{display:grid;grid-template-columns:1.05fr .95fr;gap:68px;align-items:center}
+    .story-photo{position:relative}.story-photo::after{content:"HUNGRY HEROES";position:absolute;bottom:18px;left:18px;background:var(--red);color:#fff;font-family:'Bebas Neue';font-size:18px;letter-spacing:.08em;padding:10px 14px;border-radius:10px}
+    .story-photo img{width:100%;aspect-ratio:4/4.6;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .story-copy p{color:#625d56;font-size:17px}.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}.stat{background:#fff;border:1px solid var(--line);padding:18px;border-radius:18px}.stat strong{display:block;font-family:'Bebas Neue';font-size:42px;line-height:1;color:var(--red)}.stat span{display:block;color:#716b64;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+
+    .menu-wrap{background:#0d0d0d;color:#fff;border-radius:36px;padding:36px}
+    .menu-top{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:28px}.menu-top .section-lead{color:#aaa39a}
+    .filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}.filter{padding:10px 15px;border-radius:999px;border:1px solid #343434;background:transparent;color:#bab4ad;cursor:pointer;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.filter.active,.filter:hover{background:var(--red);border-color:var(--red);color:#fff}
+    .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.menu-item{background:#151515;border:1px solid #242424;padding:18px;border-radius:20px;min-height:165px;display:flex;flex-direction:column;justify-content:space-between}.menu-item[hidden]{display:none}.menu-item .tag{font-size:10px;color:#8f8981;text-transform:uppercase;letter-spacing:.14em;font-weight:900}.menu-item h3{font-size:17px;line-height:1.25;margin:8px 0 4px}.menu-item .item-foot{display:flex;justify-content:space-between;align-items:end;gap:12px}.menu-item .price{font-size:21px;font-weight:900;color:#fff}.menu-item .was{font-size:11px;color:#6f6f6f;text-decoration:line-through}.menu-item .mini{font-size:11px;color:#bdb7ae;line-height:1.35;max-width:80%}
+    .menu-note{margin-top:18px;color:#777;font-size:11px}
+
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden}.feature-img{aspect-ratio:1/1;overflow:hidden}.feature-img img{width:100%;height:100%;object-fit:cover;transition:.35s}.feature:hover .feature-img img{transform:scale(1.04)}.feature-body{padding:20px}.feature h3{font-family:'Bebas Neue';font-size:32px;line-height:1;margin:0 0 8px}.feature p{margin:0;color:#6d6861;font-size:13px}
+
+    .gallery{display:grid;grid-template-columns:1.25fr .75fr .75fr;grid-template-rows:270px 270px;gap:12px}.gallery figure{margin:0;overflow:hidden;border-radius:22px;background:#ddd}.gallery figure:first-child{grid-row:span 2}.gallery img{width:100%;height:100%;object-fit:cover;transition:.35s}.gallery figure:hover img{transform:scale(1.04)}
+
+    .visit{background:var(--red);color:#fff}.visit .section-lead{color:#ffd8d8}.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}.visit-card{background:rgba(0,0,0,.13);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:28px}.visit-card h3{font-family:'Bebas Neue';font-size:36px;line-height:1;margin:0 0 12px}.visit-card p,.visit-card li{color:#ffe5e5;font-size:14px}.hours{list-style:none;padding:0;margin:0}.hours li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.14);gap:15px}.map{height:100%;min-height:390px;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.18)}.map iframe{width:100%;height:100%;border:0;filter:saturate(.9)}
+
+    .contact{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:start}.contact-panel{background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px}.contact-line{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}.contact-line:first-child{padding-top:0}.contact-line:last-child{border-bottom:0}.contact-icon{width:40px;height:40px;display:grid;place-items:center;background:#f2ece3;border-radius:12px;flex:0 0 auto}.contact-line strong{display:block}.contact-line span{display:block;color:#706a63;font-size:13px;margin-top:2px}.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form .full{grid-column:1/-1}.field label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#6d675f;display:block;margin-bottom:7px}.field input,.field textarea{width:100%;border:1px solid var(--line);background:#fcf9f4;border-radius:13px;padding:13px 14px;outline:none}.field textarea{min-height:100px;resize:vertical}.form-msg{font-size:13px;color:#2e6b48;background:#edf8f0;border:1px solid #cfead7;padding:12px 14px;border-radius:12px;display:none;margin-top:14px}
+
+    footer{background:#0b0b0b;color:#fff;padding:45px 0}.footer-grid{display:flex;justify-content:space-between;gap:30px;align-items:end}.footer-brand{font-family:'Bebas Neue';font-size:42px;line-height:1}.footer-brand span{color:var(--red)}.footer-copy{color:#837d75;font-size:12px;max-width:450px;margin-top:12px}.footer-links{display:flex;gap:18px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#bdb8b2}.credit{margin-top:24px;padding-top:20px;border-top:1px solid #242424;color:#5e5953;font-size:10px}
+
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px;z-index:80}.modal.open{display:flex}.modal-card{width:min(520px,100%);background:var(--cream);border-radius:26px;padding:26px;position:relative}.modal-close{position:absolute;right:14px;top:14px;width:38px;height:38px;border:0;border-radius:50%;background:#ece4d9;cursor:pointer;font-size:20px}.modal-card h3{font-family:'Bebas Neue';font-size:44px;line-height:1;margin:0 40px 10px 0}.modal-card p{color:#6e6962;font-size:13px}
+
+    @media(max-width:900px){.navlinks{display:none}.menu-btn{display:block}.navcta{display:none}.hero{min-height:700px}.hero-inner{grid-template-columns:1fr;gap:28px}.hero-card{max-width:420px}.story,.contact,.visit-grid{grid-template-columns:1fr}.story-photo{max-width:620px}.menu-grid{grid-template-columns:1fr 1fr}.feature-grid{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:280px 220px 220px}.gallery figure:first-child{grid-row:span 2}.map{min-height:340px}.footer-grid{align-items:start;flex-direction:column}}
+    @media(max-width:600px){.container{width:min(100% - 26px,1180px)}.topbar{font-size:10px}.nav{height:68px}.brand{font-size:22px}.brand img{width:42px;height:42px}section{padding:78px 0}.section-head,.menu-top{display:block}.section-lead{margin-top:14px}.hero-inner{padding:72px 0}.hero-card{display:none}h1{font-size:82px}.hero-copy{font-size:15px}.menu-wrap{padding:20px;border-radius:28px}.menu-grid,.feature-grid{grid-template-columns:1fr}.gallery{grid-template-columns:1fr;grid-template-rows:310px repeat(4,180px)}.gallery figure:first-child{grid-row:span 1}.story-grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.form .full{grid-column:auto}.footer-links{flex-wrap:wrap}.visit-card{padding:22px}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="container">Rajshahi's superhero burger stop · Dine-in · Takeaway · Delivery</div></div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Hungry Heroes home">
+        <img src="https://foodshahibd.com/foodshahi_ci/assets/media/restaurants/logo/1553026078_logo.jpg" alt="Hungry Heroes logo" />
+        <span>Hungry Heroes</span>
+      </a>
+      <nav class="navlinks">
+        <a href="#story">Our story</a><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#visit">Visit</a>
+      </nav>
+      <a class="navcta" href="https://www.foodpanda.com.bd/restaurant/s7lr/hungry-heroes" target="_blank" rel="noopener">Order online ↗</a>
+      <button class="menu-btn" aria-label="Open menu" onclick="toggleMobileNav()">☰</button>
+    </div>
+    <nav id="mobileNav" style="display:none;padding:0 13px 14px" class="container">
+      <div style="display:grid;gap:10px;background:#fff;border:1px solid var(--line);padding:14px;border-radius:18px">
+        <a href="#story" onclick="closeMobileNav()">Our story</a><a href="#menu" onclick="closeMobileNav()">Menu</a><a href="#gallery" onclick="closeMobileNav()">Gallery</a><a href="#visit" onclick="closeMobileNav()">Visit</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="kicker">Rajshahi · Bangladesh · Since 2018</div>
+          <h1>COME<br><span style="color:var(--red)">HUNGRY.</span><br>LEAVE<br>LEGENDARY.</h1>
+          <p class="hero-copy">Big burgers, power bowls, crispy snacks and the kind of comfort food that turns a quick bite into a full-on mission.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#menu">Explore the menu</a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/place/Hungry+Heroes/@24.3717123,88.5871434,15z/data=!4m10!1m2!2m1!1srestaurants+in+rajshahi!3m6!1s0x39fbefc6dff86321:0x9c1c697ef73ba877!8m2!3d24.3670861!4d88.601004!15sChdyZXN0YXVyYW50cyBpbiByYWpzaGFoaVoZIhdyZXN0YXVyYW50cyBpbiByYWpzaGFoaZIBFGhhbWJ1cmdlcl9yZXN0YXVyYW50mgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDJwU2IySjZaREZXTTNCS1UwZE9TRnBHYUROWFJYZzFUV3c0TVZaSFl4QULgAQD6AQQIABBF!16s%2Fg%2F11g19nr4bm" target="_blank" rel="noopener">Get directions ↗</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <img src="https://images.deliveryhero.io/image/fd-bd/LH/s7lr-hero.jpg" alt="Loaded Hungry Heroes burger" />
+          <div class="cap"><div><h3>THE HERO STACK</h3><p>One serious burger situation.</p></div><div class="price-pill">from ৳ 221</div></div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="ticker"><div class="ticker-track"><span>BURGERS</span><b>★</b><span>MOMOS</span><b>★</b><span>FRIES</span><b>★</b><span>SHAKES</span><b>★</b><span>POWER BOWLS</span><b>★</b><span>BURGERS</span><b>★</b><span>MOMOS</span><b>★</b><span>FRIES</span><b>★</b><span>SHAKES</span><b>★</b><span>POWER BOWLS</span><b>★</b></div></div>
+
+    <section id="story">
+      <div class="container story">
+        <div class="story-photo"><img src="https://dimg04.c-ctrip.com/images/02Y4f12000agzidn321DD_R_1080_808_Q90.jpg" alt="Hungry Heroes burger photographed at the restaurant" /></div>
+        <div class="story-copy">
+          <div class="eyebrow">The headquarters</div>
+          <h2>A LITTLE MORE<br>THAN A BURGER.</h2>
+          <p>Hungry Heroes is a superhero-themed restaurant in Rajshahi built around burgers, snacks, power bowls and a lively casual-dining experience. The restaurant is located on the fifth floor of Sohidullah Tower 02 in Ranibazar.</p>
+          <p>The current online menu highlights Heroes Signature Burgers, Headquarters Burgers, Super Stacks, Snacks and Power Bowls — with delivery and dine-in options listed publicly.</p>
+          <div class="story-grid">
+            <div class="stat"><strong>4.7★</strong><span>Foodpanda rating</span></div>
+            <div class="stat"><strong>5F</strong><span>Sohidullah Tower 02</span></div>
+            <div class="stat"><strong>2018</strong><span>Established</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" style="padding-top:40px">
+      <div class="container">
+        <div class="menu-wrap">
+          <div class="menu-top">
+            <div><div class="eyebrow" style="color:#ff6b6c">The menu</div><h2>CHOOSE YOUR<br>MISSION.</h2></div>
+            <p class="section-lead">A current snapshot of the Rajshahi online ordering menu. Prices shown are the currently listed online prices and can change.</p>
+          </div>
+          <div class="filters" role="tablist" aria-label="Menu categories">
+            <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="signature">Signature</button><button class="filter" data-filter="hq">Headquarters</button><button class="filter" data-filter="stacks">Super Stacks</button><button class="filter" data-filter="snacks">Snacks</button><button class="filter" data-filter="bowls">Power Bowls</button>
+          </div>
+          <div class="menu-grid">
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature</div><h3>Classic Chicken Cheese Burger</h3></div><div class="item-foot"><span class="mini">Classic chicken + cheese.</span><span><b class="price">৳221</b><small class="was"> ৳245</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature · Popular</div><h3>Smokehouse Garlic Mayo Chicken Burger</h3></div><div class="item-foot"><span class="mini">Smoky, creamy, stacked.</span><span><b class="price">৳257</b><small class="was"> ৳285</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature</div><h3>The Dark Naga Chicken Burger</h3></div><div class="item-foot"><span class="mini">A fiery Naga-led stack.</span><span><b class="price">৳266</b><small class="was"> ৳295</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature · Popular</div><h3>Smokey BBQ Chicken Burger</h3></div><div class="item-foot"><span class="mini">BBQ-forward chicken burger.</span><span><b class="price">৳234</b><small class="was"> ৳260</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature</div><h3>Classic Beef Cheese Burger</h3></div><div class="item-foot"><span class="mini">Classic beef + cheese.</span><span><b class="price">৳293</b><small class="was"> ৳325</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature</div><h3>Smokehouse Garlic Mayo Beef Burger</h3></div><div class="item-foot"><span class="mini">Smoky garlic-mayo beef.</span><span><b class="price">৳320</b><small class="was"> ৳355</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature</div><h3>The Dark Naga Beef Burger</h3></div><div class="item-foot"><span class="mini">Beef with a Naga kick.</span><span><b class="price">৳338</b><small class="was"> ৳375</small></span></div></article>
+            <article class="menu-item" data-cat="signature"><div><div class="tag">Heroes Signature</div><h3>Smokey BBQ Beef Burger</h3></div><div class="item-foot"><span class="mini">Smoky BBQ beef burger.</span><span><b class="price">৳302</b><small class="was"> ৳335</small></span></div></article>
+
+            <article class="menu-item" data-cat="hq"><div><div class="tag">Headquarters</div><h3>Chicken Supreme Burger</h3></div><div class="item-foot"><span class="mini">A signature oversized build.</span><span><b class="price">৳329</b><small class="was"> ৳365</small></span></div></article>
+            <article class="menu-item" data-cat="hq"><div><div class="tag">Headquarters</div><h3>Beef Supreme Burger</h3></div><div class="item-foot"><span class="mini">A bigger beef mission.</span><span><b class="price">৳410</b><small class="was"> ৳455</small></span></div></article>
+            <article class="menu-item" data-cat="hq"><div><div class="tag">Headquarters · Popular</div><h3>Chicken Mushroom Delight Burger</h3></div><div class="item-foot"><span class="mini">Chicken, cheese and mushrooms.</span><span><b class="price">৳302</b><small class="was"> ৳335</small></span></div></article>
+            <article class="menu-item" data-cat="hq"><div><div class="tag">Headquarters</div><h3>Beef Mushroom Delight Burger</h3></div><div class="item-foot"><span class="mini">Beef with mushroom layers.</span><span><b class="price">৳401</b><small class="was"> ৳445</small></span></div></article>
+            <article class="menu-item" data-cat="hq"><div><div class="tag">Headquarters · Popular</div><h3>Chicken Cheese Delight Burger</h3></div><div class="item-foot"><span class="mini">Chicken + cheese, dialed up.</span><span><b class="price">৳311</b><small class="was"> ৳345</small></span></div></article>
+            <article class="menu-item" data-cat="hq"><div><div class="tag">Headquarters</div><h3>Beef Cheese Delight Burger</h3></div><div class="item-foot"><span class="mini">Beef + cheese, loaded.</span><span><b class="price">৳437</b><small class="was"> ৳485</small></span></div></article>
+
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Chicken Super Monster Burger</h3></div><div class="item-foot"><span class="mini">A full-on stacked mission.</span><span><b class="price">৳473</b><small class="was"> ৳525</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Beef Thunder Smash Burger</h3></div><div class="item-foot"><span class="mini">Smash-style beef stack.</span><span><b class="price">৳491</b><small class="was"> ৳545</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Mad Love Burger</h3></div><div class="item-foot"><span class="mini">A loaded signature stack.</span><span><b class="price">৳356</b><small class="was"> ৳395</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Beef Monday Madness Burger</h3></div><div class="item-foot"><span class="mini">Big beef. Big mood.</span><span><b class="price">৳590</b><small class="was"> ৳655</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Chicken Smokey Sausage Burger</h3></div><div class="item-foot"><span class="mini">Chicken + smoky sausage.</span><span><b class="price">৳284</b><small class="was"> ৳315</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Beef Smokey Sausage Burger</h3></div><div class="item-foot"><span class="mini">Beef + smoky sausage.</span><span><b class="price">৳329</b><small class="was"> ৳365</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Beef Captain America Burger</h3></div><div class="item-foot"><span class="mini">A hero-sized beef build.</span><span><b class="price">৳329</b><small class="was"> ৳365</small></span></div></article>
+            <article class="menu-item" data-cat="stacks"><div><div class="tag">Super Stacks</div><h3>Chicken Thunder Stack Burger</h3></div><div class="item-foot"><span class="mini">Chicken, stacked.</span><span><b class="price">৳284</b><small class="was"> ৳315</small></span></div></article>
+
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>Steamed Momo</h3></div><div class="item-foot"><span class="mini">6 pcs · Seasoned minced chicken in soft dough.</span><span><b class="price">৳212</b><small class="was"> ৳235</small></span></div></article>
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>Crunchy Chicken Wings</h3></div><div class="item-foot"><span class="mini">Crispy, golden, seasoned.</span><span><b class="price">৳221</b><small class="was"> ৳245</small></span></div></article>
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>Naga Chicken Wings</h3></div><div class="item-foot"><span class="mini">Naga chili sauce, spicy & tangy.</span><span><b class="price">৳221</b><small class="was"> ৳245</small></span></div></article>
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>BBQ Chicken Wings</h3></div><div class="item-foot"><span class="mini">BBQ sauce, garlic, onion & mild spices.</span><span><b class="price">৳221</b><small class="was"> ৳245</small></span></div></article>
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>Fried Momo</h3></div><div class="item-foot"><span class="mini">6 pcs · Crispy fried minced chicken momo.</span><span><b class="price">৳212</b><small class="was"> ৳235</small></span></div></article>
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>Chicken Strips</h3></div><div class="item-foot"><span class="mini">Crispy chicken strips.</span><span><b class="price">৳239</b><small class="was"> ৳265</small></span></div></article>
+            <article class="menu-item" data-cat="snacks"><div><div class="tag">Snacks</div><h3>The Marvel Fries</h3></div><div class="item-foot"><span class="mini">Loaded fries for the table.</span><span><b class="price">৳356</b><small class="was"> ৳395</small></span></div></article>
+
+            <article class="menu-item" data-cat="bowls"><div><div class="tag">Power Bowls</div><h3>Alapino OG</h3></div><div class="item-foot"><span class="mini">Power bowl.</span><span><b class="price">৳239</b><small class="was"> ৳265</small></span></div></article>
+            <article class="menu-item" data-cat="bowls"><div><div class="tag">Power Bowls</div><h3>Cascade</h3></div><div class="item-foot"><span class="mini">Power bowl.</span><span><b class="price">৳266</b><small class="was"> ৳295</small></span></div></article>
+            <article class="menu-item" data-cat="bowls"><div><div class="tag">Power Bowls</div><h3>The Fuel Box</h3></div><div class="item-foot"><span class="mini">Power bowl.</span><span><b class="price">৳284</b><small class="was"> ৳315</small></span></div></article>
+            <article class="menu-item" data-cat="bowls"><div><div class="tag">Power Bowls</div><h3>Classic Bowl</h3></div><div class="item-foot"><span class="mini">Power bowl.</span><span><b class="price">৳266</b><small class="was"> ৳295</small></span></div></article>
+          </div>
+          <div class="menu-note">Prices are shown as listed on the current Foodpanda Rajshahi menu checked for this site build. Item availability and promotional pricing can change.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">Built for sharing</div><h2>THE HEROES' CHOICE.</h2></div><p class="section-lead">A few of the menu stars deserve their own spotlight.</p></div>
+        <div class="feature-grid">
+          <article class="feature"><div class="feature-img"><img src="https://images.deliveryhero.io/image/global-menu-service/FP_BD/vendor/s7lr/product/10797395/9c59c504-f39b-4386-9e97-e9e94f5483ea.jpg" alt="Hungry Heroes beef burger" loading="lazy"></div><div class="feature-body"><h3>Smash the craving.</h3><p>Beef-forward stacks with cheese, sauce and the signature Hungry Heroes look.</p></div></article>
+          <article class="feature"><div class="feature-img"><img src="https://images.deliveryhero.io/image/global-menu-service/FP_BD/vendor/s7lr/product/10797393/d4d2cf5e-5f8c-43fe-847a-99f6651ab838.jpg" alt="Hungry Heroes mushroom burger" loading="lazy"></div><div class="feature-body"><h3>Mushroom mission.</h3><p>One of the current Headquarters burger favorites, photographed straight from the menu listing.</p></div></article>
+          <article class="feature"><div class="feature-img"><img src="https://images.deliveryhero.io/image/global-menu-service/FP_BD/vendor/s7lr/product/10797414/16e97884-9b00-4a1f-aca1-942a7dce204d.jpg" alt="Hungry Heroes power bowl" loading="lazy"></div><div class="feature-body"><h3>Power up.</h3><p>Power Bowls round out the menu when the mission calls for something beyond burgers.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" style="padding-top:30px">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow">From the field</div><h2>REAL FOOD.<br>REAL HEROES.</h2></div><p class="section-lead">Restaurant and menu photography found in public Hungry Heroes listings and ordering pages.</p></div>
+        <div class="gallery">
+          <figure><img src="https://dimg04.c-ctrip.com/images/02Y4f12000agzidn321DD_R_1080_808_Q90.jpg" alt="Hungry Heroes burger in the restaurant" loading="lazy"></figure>
+          <figure><img src="https://images.deliveryhero.io/image/fd-bd/LH/s7lr-hero.jpg" alt="Loaded Hungry Heroes burger" loading="lazy"></figure>
+          <figure><img src="https://images.deliveryhero.io/image/global-menu-service/FP_BD/vendor/s7lr/product/10797385/2979231d-fef9-4ba6-95f4-dea59188d288.jpg" alt="Hungry Heroes burger product shot" loading="lazy"></figure>
+          <figure><img src="https://images.deliveryhero.io/image/global-menu-service/FP_BD/vendor/s7lr/product/10797414/16e97884-9b00-4a1f-aca1-942a7dce204d.jpg" alt="Hungry Heroes bowl" loading="lazy"></figure>
+          <figure><img src="https://images.deliveryhero.io/image/global-menu-service/FP_BD/vendor/s7lr/product/10797393/d4d2cf5e-5f8c-43fe-847a-99f6651ab838.jpg" alt="Hungry Heroes mushroom burger" loading="lazy"></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="visit">
+      <div class="container">
+        <div class="section-head"><div><div class="eyebrow" style="color:#ffe0e0">Find the headquarters</div><h2>SEE YOU AT<br>THE 5TH FLOOR.</h2></div><p class="section-lead">Sohidullah Tower 02, 5th Floor, Ranibazar, Rajshahi 6100.</p></div>
+        <div class="visit-grid">
+          <div class="visit-card">
+            <h3>Hours</h3>
+            <ul class="hours">
+              <li><span>Monday</span><b>12:00 — 22:00</b></li>
+              <li><span>Tuesday</span><b>12:00 — 22:00</b></li>
+              <li><span>Wednesday</span><b>12:00 — 22:00</b></li>
+              <li><span>Thursday</span><b>12:00 — 22:00</b></li>
+              <li><span>Friday</span><b>15:00 — 21:50</b></li>
+              <li><span>Saturday</span><b>12:00 — 21:58</b></li>
+              <li><span>Sunday</span><b>12:00 — 22:00</b></li>
+            </ul>
+            <p style="margin-top:18px">Hours shown reflect the current online ordering listing and may vary on holidays or special days.</p>
+            <div class="hero-actions" style="margin-top:20px"><a class="btn btn-ghost" href="tel:+8801733354730">Call 01733-354730</a><a class="btn btn-primary" href="https://www.foodpanda.com.bd/restaurant/s7lr/hungry-heroes" target="_blank" rel="noopener">Order online ↗</a></div>
+          </div>
+          <div class="map"><iframe title="Hungry Heroes location map" loading="lazy" src="https://www.google.com/maps?q=24.3670861,88.601004&z=16&output=embed"></iframe></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact">
+        <div>
+          <div class="eyebrow">Plan your visit</div><h2>BOOK A<br>HEROIC TABLE.</h2>
+          <p class="section-lead">Use the form for a reservation request or group enquiry. For same-day changes, call the restaurant directly.</p>
+          <div class="contact-panel" style="margin-top:26px">
+            <div class="contact-line"><div class="contact-icon">⌖</div><div><strong>Address</strong><span>5th Floor, Sohidullah Tower 02, Tula Potti, Ranibazar, Rajshahi 6100</span></div></div>
+            <div class="contact-line"><div class="contact-icon">☎</div><div><strong>Phone</strong><span><a href="tel:+8801733354730">+880 1733-354730</a></span></div></div>
+            <div class="contact-line"><div class="contact-icon">↗</div><div><strong>Online ordering</strong><span><a href="https://www.foodpanda.com.bd/restaurant/s7lr/hungry-heroes" target="_blank" rel="noopener">Foodpanda · Hungry Heroes Rajshahi</a></span></div></div>
+          </div>
+        </div>
+        <form class="contact-panel form" onsubmit="handleBooking(event)">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" required placeholder="Your name"></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" required placeholder="01XXXXXXXXX"></div>
+          <div class="field"><label for="date">Date</label><input id="date" name="date" type="date" required></div>
+          <div class="field"><label for="time">Time</label><input id="time" name="time" type="time" required></div>
+          <div class="field"><label for="guests">Guests</label><input id="guests" name="guests" type="number" min="1" max="30" value="2" required></div>
+          <div class="field"><label for="message">Note</label><input id="message" name="message" placeholder="Birthday, family dinner, group booking…"></div>
+          <div class="full" style="display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap"><button class="btn btn-primary" type="submit">Request a booking</button><span style="font-size:11px;color:#767068">Demo form — connect to your booking system or email endpoint.</span></div>
+          <div id="formMsg" class="form-msg full">Thanks — your request is ready. Connect this form to your preferred booking/email service to receive submissions.</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div><div class="footer-brand">HUNGRY <span>HEROES</span></div><div class="footer-copy">Burgers, momos, fries, shakes and power bowls in the heart of Rajshahi.</div></div>
+        <div class="footer-links"><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#visit">Location</a><a href="tel:+8801733354730">Call</a><a href="https://www.foodpanda.com.bd/restaurant/s7lr/hungry-heroes" target="_blank" rel="noopener">Order</a></div>
+      </div>
+      <div class="credit">Website concept populated from current public Hungry Heroes restaurant listings, including the Google Maps location supplied for this build and public ordering/listing information. Menu prices and hours should be rechecked before production launch. Image sources include Foodpanda, FoodShahiBD and Tripadvisor/public restaurant listings.</div>
+    </div>
+  </footer>
+
+  <div class="modal" id="galleryModal" onclick="closeGallery(event)"><div class="modal-card" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeGallery()">×</button><img id="modalImage" src="" alt="Hungry Heroes gallery image" style="width:100%;border-radius:18px;max-height:70vh;object-fit:cover"></div></div>
+
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const items = document.querySelectorAll('.menu-item');
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(x => x.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      items.forEach(item => { item.hidden = filter !== 'all' && item.dataset.cat !== filter; });
+    }));
+
+    function toggleMobileNav(){ const el=document.getElementById('mobileNav'); el.style.display = el.style.display==='none' ? 'block' : 'none'; }
+    function closeMobileNav(){ document.getElementById('mobileNav').style.display='none'; }
+    function handleBooking(e){ e.preventDefault(); document.getElementById('formMsg').style.display='block'; e.target.reset(); document.getElementById('guests').value='2'; }
+
+    document.querySelectorAll('.gallery figure img').forEach(img => img.parentElement.addEventListener('click', () => {
+      document.getElementById('modalImage').src = img.src;
+      document.getElementById('galleryModal').classList.add('open');
+    }));
+    function closeGallery(e){ if(e && e.target && e.target.id!=='galleryModal' && !e.target.classList.contains('modal-close')) return; document.getElementById('galleryModal').classList.remove('open'); }
+  </script>
+</body>
+</html>
